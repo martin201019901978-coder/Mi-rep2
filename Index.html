@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz 21 de septiembre❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --line-color: linear-gradient(to left top, #82ff86 20%, #144425, #104e1c);
+      --flower-center: radial-gradient(circle, #3d2003, #8b4513);
+      --leaf-color: radial-gradient(circle, #82ff86, #104e1c);
+      --petal-color: radial-gradient(circle, #ff5e00, #ffbb00);
+      --dorado-claro: #F9E076;
+    }
+    body {
+      background-color: #000;
+      min-height: 100vh;
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url('https://www.dl.dropboxusercontent.com/scl/fi/fl2r4nxntvp5g6d1259li/GIRASOLFONDO.png?rlkey=gxwqa1g0gd34r3k0j6v506gd1&st=p40j52o7');
+      background-size: cover;
+      background-position: center;
+      filter: blur(2px);
+      opacity: 0.2;
+      z-index: -1;
+    }
+    .fade { transition: opacity 1s ease-in-out; }
+    .hidden { opacity: 0; pointer-events: none; }
+
+    .start-screen {
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      height: 100vh; background: #000;
+      color: #fff; text-align: center;
+    }
+    .start-button {
+      margin-top: 20px; padding: 10px 20px;
+      font-size: 18px; border: none;
+      border-radius: 10px; cursor: pointer;
+      background: var(--dorado-claro);
+      transition: transform 0.3s;
+    }
+    .start-button:hover { transform: scale(1.1); }
+
+    .main-content { text-align: center; padding: 20px; }
+    .main-title {
+      color: var(--dorado-claro);
+      font-family: 'Pacifico', cursive;
+      font-size: 40px; margin-bottom: 20px;
+      animation: aparecer 2s ease-in-out;
+    }
+
+    .sunflower-container { display: flex; justify-content: center; margin-top: 40px; }
+    .flower_stem {
+      width: 10px; height: 200px;
+      background: var(--line-color);
+      margin: 0 auto;
+    }
+    .flower_center {
+      width: 120px; height: 120px;
+      border-radius: 50%; margin: 0 auto;
+      background: var(--flower-center);
+      position: relative;
+      z-index: 2;
+    }
+    .flower_petal {
+      width: 60px; height: 100px;
+      background: var(--petal-color);
+      border-radius: 30px 30px 0 0;
+      position: absolute;
+      top: -40px; left: 30px;
+      transform-origin: bottom center;
+    }
+    @keyframes girar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .flower_center { animation: girar 20s linear infinite; }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="start-screen fade" id="startScreen">
+    <h1 class="start-title">Un regalo para ti ❤️</h1>
+    <button class="start-button" id="startBtn">Abrir</button>
+  </div>
+
+  <div class="main-content fade hidden" id="mainContainer">
+    <h1 class="main-title">Feliz 21 de septiembre❤️</h1>
+    <div class="sunflower-container">
+      <div class="flower">
+        <div class="flower_stem"></div>
+        <div class="flower_center" id="flowerCenter"></div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const startBtn = document.getElementById("startBtn");
+    const startScreen = document.getElementById("startScreen");
+    const mainContainer = document.getElementById("mainContainer");
+    const flowerCenter = document.getElementById("flowerCenter");
+    const music = document.getElementById("bgMusic");
+
+    // Crear pétalos alrededor del centro
+    const petalCount = 16; 
+    for (let i = 0; i < petalCount; i++) {
+      const petal = document.createElement("div");
+      petal.classList.add("flower_petal");
+      petal.style.transform = `rotate(${(360/petalCount)*i}deg) translateY(-70px)`;
+      flowerCenter.appendChild(petal);
+    }
+
+    startBtn.addEventListener("click", () => {
+      startScreen.classList.add("hidden");
+      setTimeout(() => {
+        startScreen.style.display = "none";
+        mainContainer.classList.remove("hidden");
+      }, 1000);
+
+      // Reproducir música
+      music.play().catch(() => {
+        console.log("Reproducción automática bloqueada, el usuario debe interactuar.");
+      });
+    });
+  </script>
+</body>
+</html>
